@@ -59,10 +59,10 @@ class AuthValidator {
       token: {
         in: ["body"],
         notEmpty: {
-          errorMessage: "Refresh Token is required",
+          errorMessage: "Token is required",
         },
         isString: {
-          errorMessage: "Refresh Token must be a string",
+          errorMessage: "Token must be a string",
         },
       },
     })

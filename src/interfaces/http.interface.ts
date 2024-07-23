@@ -5,5 +5,5 @@ export interface IRequestUser {
   role?: ROLE;
   email?: string;
   expires?: number;
-  sessionId: string;
+  sessionId?: string;
 }

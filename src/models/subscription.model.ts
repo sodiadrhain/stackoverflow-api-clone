@@ -63,24 +63,24 @@ Subscription.init(
  * Specify relations for Subscription model
  */
 Subscription.belongsTo(User, {
-  foreignKey: "user_id",
+  foreignKey: "userId",
   as: "user",
 });
 
 Subscription.belongsTo(Question, {
-  foreignKey: "question_id",
+  foreignKey: "questionId",
   as: "question",
 });
 
 User.hasMany(Subscription, {
   sourceKey: "id",
-  foreignKey: "user_id",
+  foreignKey: "userId",
   as: "subscriptions",
 });
 
 Question.hasMany(Subscription, {
   sourceKey: "id",
-  foreignKey: "question_id",
+  foreignKey: "questionId",
   as: "subscriptions",
 });
 

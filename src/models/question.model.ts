@@ -64,13 +64,13 @@ Question.init(
  * Specify realtions to be able to fetch all User Questions
  */
 Question.belongsTo(User, {
-  foreignKey: "user_id",
+  foreignKey: "userId",
   as: "user",
 });
 
 User.hasMany(Question, {
   sourceKey: "id",
-  foreignKey: "user_id",
+  foreignKey: "userId",
   as: "questions",
 });
 

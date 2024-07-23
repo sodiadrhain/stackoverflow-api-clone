@@ -8,6 +8,6 @@ const router: Router = Express.Router();
 router.post("/login", authValidator.login, authController.login);
 router.post("/register", authValidator.register, authController.register);
 router.get("/logout", authMiddleware, authController.logout);
-// router.post("/refresh", authValidator.refreshToken, authController.refreshToken);
+router.post("/refresh", authValidator.refreshToken, authController.refreshToken);
 
 export default router;

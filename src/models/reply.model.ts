@@ -67,24 +67,24 @@ Reply.init(
  * Specify relations for Reply model
  */
 Reply.belongsTo(User, {
-  foreignKey: "user_id",
+  foreignKey: "userId",
   as: "user",
 });
 
 Reply.belongsTo(Question, {
-  foreignKey: "question_id",
+  foreignKey: "questionId",
   as: "question",
 });
 
 User.hasMany(Reply, {
   sourceKey: "id",
-  foreignKey: "user_id",
+  foreignKey: "userId",
   as: "replies",
 });
 
 Question.hasMany(Reply, {
   sourceKey: "id",
-  foreignKey: "question_id",
+  foreignKey: "questionId",
   as: "replies",
 });
 

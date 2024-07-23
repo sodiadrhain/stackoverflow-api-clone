@@ -78,13 +78,13 @@ Session.init(
  * Specify relations for Session model
  */
 Session.belongsTo(User, {
-  foreignKey: "user_id",
+  foreignKey: "userId",
   as: "user",
 });
 
 User.hasMany(Session, {
   sourceKey: "id",
-  foreignKey: "user_id",
+  foreignKey: "userId",
   as: "sessions",
 });
 

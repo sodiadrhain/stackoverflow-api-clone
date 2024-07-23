@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { sessionService, userService } from "@services";
-import { decryptPassword, generateToken, hashPassword } from "@utils";
+import { decryptPassword, generateToken, hashPassword, decodeToken } from "@utils";
 import { JWT } from "@envs";
-import { RESPONSE_MSG } from "@enums";
 
 class AuthController {
   /**
@@ -15,7 +14,7 @@ class AuthController {
 
     try {
       const user = await userService.createUser({ email, password: hashPassword(password) });
-      res.ok({ email: user.email }, "User registered successfully");
+      res.created({ email: user.email }, "User registered successfully");
     } catch (error) {
       res.serverError(error);
     }
@@ -75,6 +74,44 @@ class AuthController {
       res.ok(null, "Logout successful");
     } catch (error) {
       res.serverError(error);
+    }
+  };
+
+  /**
+   * @route POST refresh
+   * @desc Get new authToken
+   * @access Public
+   */
+  refreshToken = async (req: Request, res: Response) => {
+    const { token } = req.body;
+    try {
+      req.user = decodeToken(token, true);
+
+      const session = await sessionService.getSession({ id: req.user.sessionId });
+      if (!session || session.expiresAt < new Date()) {
+        return res.badRequest("Token expired or Invalid");
+      }
+
+      // Users can only request new token at a limited interval
+      if (session.refreshTokenCount > 4) {
+        await sessionService.updateSession(session, {
+          expiresAt: new Date(),
+        });
+      }
+
+      const _token = {
+        accessToken: generateToken({ id: req.user.userId, ...req.user }, session),
+        refreshToken: token,
+      };
+
+      // Increment refreshTokenCount as new token is requested
+      await sessionService.updateSession(session, {
+        refreshTokenCount: session.refreshTokenCount + 1,
+      });
+
+      res.ok({ token: _token });
+    } catch (_) {
+      res.badRequest("Token expired or Invalid");
     }
   };
 }

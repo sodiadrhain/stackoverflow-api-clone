@@ -22,7 +22,8 @@ class SubscriptionService {
     subsciption: Subscription,
     updates: ISubscription
   ): Promise<Subscription> {
-    return subsciption.update({ ...updates });
+    subsciption.update({ ...updates });
+    return subsciption.save();
   }
 }
 

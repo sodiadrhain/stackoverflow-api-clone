@@ -1,5 +1,6 @@
 import { IQuestion } from "@interfaces";
 import { Question } from "@models";
+import { IPaginationOptions } from "src/interfaces/pagination.interface";
 
 class QuestionService {
   // CreateQuestion :one
@@ -13,13 +14,26 @@ class QuestionService {
   }
 
   // ListQuestions :many
-  public listQuestions(): Promise<Question[]> {
-    return Question.findAll();
+  public listQuestions(
+    arg: IPaginationOptions<IQuestion>
+  ): Promise<{ rows: Question[]; count: number }> {
+    return Question.findAndCountAll({
+      where: { ...arg.query },
+      limit: arg.limit,
+      offset: arg.limit * (arg.page - 1),
+      order: [["id", "DESC"]],
+    });
   }
 
   // UpdateQuestion :one
   public updateQuestion(question: Question, updates: IQuestion): Promise<Question> {
-    return question.update({ ...updates });
+    question.update({ ...updates });
+    return question.save();
+  }
+
+  // DeleteQuestion :one
+  public deleteQuestion(question: IQuestion): Promise<number> {
+    return Question.destroy({ where: { id: question.id }, cascade: true });
   }
 }
 

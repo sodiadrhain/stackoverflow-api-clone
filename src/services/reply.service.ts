@@ -19,7 +19,8 @@ class ReplyService {
 
   // UpdateReply :one
   public updateReply(reply: Reply, updates: IReply): Promise<Reply> {
-    return reply.update({ ...updates });
+    reply.update({ ...updates });
+    return reply.save();
   }
 }
 

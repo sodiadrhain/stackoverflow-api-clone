@@ -19,7 +19,8 @@ class RatingService {
 
   // UpdateRating :one
   public updateRating(rating: Rating, updates: IRating): Promise<Rating> {
-    return rating.update({ ...updates });
+    rating.update({ ...updates });
+    return rating.save();
   }
 }
 
