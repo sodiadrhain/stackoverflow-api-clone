@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS `subscriptions`;
+DROP TABLE IF EXISTS `ratings`;
+DROP TABLE IF EXISTS `replies`;
+DROP TABLE IF EXISTS `questions`;
+DROP TABLE IF EXISTS `users`;

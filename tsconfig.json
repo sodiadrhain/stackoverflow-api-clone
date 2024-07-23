@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "incremental": true,
+    "moduleResolution": "node",
+    "outDir": ".dist",
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@envs": ["src/config/env.config"],
+      "@controllers": ["src/controllers"],
+      "@enums": ["src/types/enums"],
+      "@interfaces": ["src/interfaces"],
+      "@utils": ["src/utils"],
+      "@types": ["src/types"],
+      "@config": ["src/config"],
+      "@services": ["src/services"],
+      "@models": ["src/models"],
+      "@middlewares": ["src/middlewares"],
+      "@validators": ["src/validators"],
+      "@templates": ["src/templates"],
+    },
+    "lib": ["dom", "ES6"],
+    "target": "ES6",
+    "module": "CommonJS",
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false
+  }
+}
