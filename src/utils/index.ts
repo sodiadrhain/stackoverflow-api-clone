@@ -3,6 +3,7 @@ import validate from "./validator.util";
 import { hashPassword, decryptPassword } from "./password.util";
 import { generateToken, decodeToken } from "./token.util";
 import { generateSlug, isEmptyObject } from "./string.util";
+import { paginate } from "./pagination.util";
 
 export {
   HttpHandler,
@@ -13,4 +14,5 @@ export {
   generateSlug,
   decodeToken,
   isEmptyObject,
+  paginate,
 };

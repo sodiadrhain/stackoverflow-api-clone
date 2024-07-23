@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { questionService } from "@services";
-import { generateSlug, isEmptyObject } from "@utils";
+import { generateSlug, isEmptyObject, paginate } from "@utils";
 import { v4 as uuidv4 } from "uuid";
-import { paginate } from "src/utils/pagination.util";
 
 class QuestionController {
   /**
@@ -157,6 +156,7 @@ class QuestionController {
       const updatedQuestion = await questionService.updateQuestion(question, {
         title,
         description,
+        edited: true,
       });
 
       res.ok(updatedQuestion, "Question updated successfully");

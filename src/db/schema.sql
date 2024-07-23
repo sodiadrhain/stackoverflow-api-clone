@@ -30,7 +30,7 @@ CREATE TABLE `questions` (
 
 CREATE TABLE `replies` (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
-  `reply` varchar(255) NOT NULL,
+  `reply` text NOT NULL,
   `question_id` bigint,
   `user_id` bigint,
   `edited` tinyint NOT NULL DEFAULT 0,
@@ -58,16 +58,16 @@ CREATE TABLE `subscriptions` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-ALTER TABLE `questions` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `questions` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `replies` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `replies` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `replies` ADD FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`);
+ALTER TABLE `replies` ADD FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `ratings` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `ratings` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `ratings` ADD FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`);
+ALTER TABLE `ratings` ADD FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `subscriptions` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `subscriptions` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `subscriptions` ADD FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`);
+ALTER TABLE `subscriptions` ADD FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

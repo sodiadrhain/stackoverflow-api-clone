@@ -21,7 +21,6 @@ class QuestionValidator {
         isString: {
           errorMessage: "Description must be string",
         },
-        optional: true,
       },
     })
   );
