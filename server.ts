@@ -6,7 +6,7 @@ import { HttpHandler } from "@utils";
 import passport from "passport";
 import { jwtMiddleware } from "@middlewares";
 import Routes from "./src/routes";
-import Database from "src/config/database.config";
+// import Database from "src/config/database.config";
 
 export const app = () => {
   const server = Express();
@@ -35,9 +35,9 @@ export const app = () => {
 export const start = () => {
   const server = app();
 
-  // Check DB connection
-  const db = new Database();
-  db.connect();
+  // // Check DB connection
+  // const db = new Database();
+  // db.connect();
 
   // Run server
   const port = APP.PORT;

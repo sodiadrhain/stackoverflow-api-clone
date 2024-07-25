@@ -6,3 +6,4 @@ package-lock.json
 .env
 logs
 yarn-error.log
+coverage

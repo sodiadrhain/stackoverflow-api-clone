@@ -1,8 +1,7 @@
-import { db, dbTrx } from "@config";
-import { IReply } from "@interfaces";
+import { db } from "@config";
+import { IReply, IPaginationOptions } from "@interfaces";
 import { Question, Reply, Subscription, SubscriptionNotification } from "@models";
 import { Op } from "sequelize";
-import { IPaginationOptions } from "src/interfaces/pagination.interface";
 
 class ReplyService {
   // CreateReply :one
@@ -39,86 +38,34 @@ class ReplyService {
   // CreateReplyTx :one
   public async createReplyTx(reply: IReply, question: Question): Promise<Reply> {
     let newReply: Reply;
-    try {
-      const result = db.transaction(async () => {
-        // create a new reply with transaction
-        // checks the subscrition table for all users who are subscribed to the question
-        // creates a notification for each of the subscribed user
-        // TODO: After create reply ==> send email to user
-        newReply = await Reply.create(reply);
+    return db.transaction(async () => {
+      // create a new reply with transaction
+      // checks the subscrition table for all users who are subscribed to the question
+      // creates a notification for each of the subscribed user
+      // TODO: After create reply ==> send email to user
+      newReply = await Reply.create(reply);
 
-        // do not create notification if its owner of question making reply
-        const subscriptions = await Subscription.findAll({
-          where: { questionId: question.id, userId: { [Op.ne]: question.userId } },
-          lock: true,
-        });
-
-        subscriptions.forEach(async (s) => {
-          // also if user who is making the reply already subscribed to it do not notify
-          if (reply.userId === s.userId) {
-            return;
-          }
-          await SubscriptionNotification.create({
-            questionId: s.questionId,
-            userId: question.userId,
-            replyId: newReply.id,
-          });
-        });
-
-        // QUEUE: Log notification to send via email to user
-        return Promise.resolve(newReply);
+      // do not create notification if its owner of question making reply
+      const subscriptions = await Subscription.findAll({
+        where: { questionId: question.id, userId: { [Op.ne]: question.userId } },
+        lock: true,
       });
-      return result;
-    } catch (error) {
-      console.log(error);
-    }
 
-    //   const transaction = await dbTrx;
-    //   let newReply: Reply;
-    //   try {
-    //     // create a new reply with transaction
-    //     // checks the subscrition table for all users who are subscribed to the question
-    //     // creates a notification for each of the subscribed user
-    //     // TODO: After create reply ==> send email to user
-    //     newReply = await Reply.create(reply, { transaction });
+      subscriptions.forEach(async (s) => {
+        // also if user who is making the reply already subscribed to it do not notify
+        if (reply.userId === s.userId) {
+          return;
+        }
+        await SubscriptionNotification.create({
+          questionId: s.questionId,
+          userId: question.userId,
+          replyId: newReply.id,
+        });
+      });
 
-    //     // do not create notification if its owner of question making reply
-    //     const subscriptions = await Subscription.findAll({
-    //       where: { questionId: question.id, userId: { [Op.ne]: question.userId } },
-    //       lock: true,
-    //       transaction,
-    //     });
-
-    //     await SubscriptionNotification.create(
-    //       {
-    //         questionId: subscriptions[0].questionId,
-    //         userId: subscriptions[0].userId,
-    //         replyId: newReply.id,
-    //       },
-    //       { transaction }
-    //     );
-
-    //     // subscriptions.forEach(async (s) => {
-    //     //   await SubscriptionNotification.create(
-    //     //     {
-    //     //       questionId: s.questionId,
-    //     //       userId: s.userId,
-    //     //       replyId: newReply.id,
-    //     //     },
-    //     //     { transaction }
-    //     //   );
-    //     // });
-
-    //     await transaction.commit();
-    //   } catch (error) {
-    //     await transaction.rollback();
-    //     throw error;
-    //   }
-
-    //   // QUEUE: Log notification to send via email to user
-
-    //   return Promise.resolve(newReply);
-    // }
+      // QUEUE: Log notification to send via email to user
+      return Promise.resolve(newReply);
+    });
   }
 }
 

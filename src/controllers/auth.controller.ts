@@ -47,7 +47,7 @@ class AuthController {
       const session = await sessionService.createSession({
         userId: user.id,
         expiresAt: new Date(dateNow.setHours(dateNow.getHours() + Number(JWT.REFRESH_EXPIRY))),
-        userAgent: req.get("user-agent"),
+        userAgent: req.get("user-agent") || "*",
         clientIp: req.ip,
       });
 

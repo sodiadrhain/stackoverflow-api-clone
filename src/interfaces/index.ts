@@ -9,6 +9,7 @@ import {
   ISubscriptionNotification,
 } from "./model.interface";
 import { IRequestUser } from "./http.interface";
+import { IPaginationOptions } from "./pagination.interface";
 
 export {
   IUser,
@@ -20,4 +21,5 @@ export {
   ISession,
   IReplyRating,
   ISubscriptionNotification,
+  IPaginationOptions,
 };

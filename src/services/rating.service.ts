@@ -1,6 +1,5 @@
 import { IRating, IReplyRating } from "@interfaces";
-import { Rating } from "@models";
-import ReplyRating from "src/models/reply-rating.model";
+import { Rating, ReplyRating } from "@models";
 
 class RatingService {
   // Start Question Ratings

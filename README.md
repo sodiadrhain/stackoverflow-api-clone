@@ -28,7 +28,7 @@ See Postman API Documentation/Collections - [https://documenter.getpostman.com/v
 |         |--- enums
 |    |--- utils
 |    |--- validators
-|    |--- __tests__
+|    |--- tests
 |--- server.ts
 |--- .env
 |--- package.json

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Request, Response, NextFunction } from "express";
 import { log } from "@services";
 import { RESPONSE_MSG, STATUS_CODES } from "@enums";

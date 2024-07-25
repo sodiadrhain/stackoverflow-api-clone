@@ -1,6 +1,5 @@
-import { IQuestion } from "@interfaces";
+import { IQuestion, IPaginationOptions } from "@interfaces";
 import { Question } from "@models";
-import { IPaginationOptions } from "src/interfaces/pagination.interface";
 
 class QuestionService {
   // CreateQuestion :one
