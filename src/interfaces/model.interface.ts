@@ -69,3 +69,13 @@ export interface ISession {
   updatedAt?: Date;
   createdAt?: Date;
 }
+
+export interface IReplyRating {
+  id?: number;
+  replyId?: number;
+  userId?: number;
+  upVote?: boolean;
+  downVote?: boolean;
+  updatedAt?: Date;
+  createdAt?: Date;
+}
