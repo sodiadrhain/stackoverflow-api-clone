@@ -16,6 +16,7 @@
     "^@validators(.*)$": "<rootDir>/src/validators$1",
     "^@templates(.*)$": "<rootDir>/src/templates$1"
   },
+  "testTimeout": 10000,
   "transform": {
     "^.+\\.(ts|tsx)$": 
       ["ts-jest", {

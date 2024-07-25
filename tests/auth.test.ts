@@ -1,6 +1,7 @@
 import request from "supertest";
 import { app } from "../server";
 import { generateRandomEmail, generateStrongPassword } from "@utils";
+import { APP } from "@envs";
 
 describe("Authentication", () => {
   it("should register a new user", async () => {
@@ -39,7 +40,7 @@ describe("Authentication", () => {
 
     const token = loginResponse.body?.data?.token?.accessToken;
 
-    const response = await request(app()).get("/auth/logout").set("sof-auth-token", token);
+    const response = await request(app()).get("/auth/logout").set(APP.AUTH_HEADER, token);
 
     expect(response.status).toBe(200);
   });
