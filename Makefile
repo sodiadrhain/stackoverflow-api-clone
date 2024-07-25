@@ -11,3 +11,5 @@ migratedown:
 
 new_migration:
 	migrate create -ext sql -dir $(DB_PATH) -seq $(name)
+
+.PHONY: migrateup migratedown new_migration
