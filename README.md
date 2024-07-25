@@ -206,3 +206,28 @@ Ensure you update the necessary configurations in the `.env` file, particularly 
 # `Subscription` - CRUD operations for subcription
     # CREATE, READ, UPDATE 
 ```
+
+### Running the tests
+
+Make sure DB is connected and migrations done, having installed Go Migrate as above, run
+
+```sh
+make migrateup
+```
+command will migrate all databases
+
+Now run:
+
+```sh
+yarn install
+```
+
+to install all packages, then:
+
+```sh
+yarn test
+```
+
+to run the test cases.
+
+___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
