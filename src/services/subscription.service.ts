@@ -1,5 +1,5 @@
 import { ISubscription } from "@interfaces";
-import { Subscription } from "@models";
+import { Question, Subscription } from "@models";
 
 class SubscriptionService {
   // CreateSubscription :one
@@ -9,7 +9,10 @@ class SubscriptionService {
 
   // GetSubscription :one
   public getSubscription(subsciption: ISubscription): Promise<Subscription> {
-    return Subscription.findByPk(subsciption.id);
+    return Subscription.findOne({
+      where: { ...subsciption },
+      include: [{ model: Question, as: "question" }],
+    });
   }
 
   // ListSubscriptions :many

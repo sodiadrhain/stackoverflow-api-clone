@@ -17,11 +17,14 @@ class ReplyController {
         return res.notFound("Question not found");
       }
 
-      const data = await replyService.createReply({
-        reply,
-        questionId,
-        userId: req.user.userId,
-      });
+      const data = await replyService.createReplyTx(
+        {
+          reply,
+          questionId,
+          userId: req.user.userId,
+        },
+        question
+      );
 
       res.created(data, "Reply created successfully");
     } catch (error) {

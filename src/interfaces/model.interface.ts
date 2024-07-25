@@ -79,3 +79,13 @@ export interface IReplyRating {
   updatedAt?: Date;
   createdAt?: Date;
 }
+
+export interface ISubscriptionNotification {
+  id?: number;
+  questionId?: number;
+  replyId?: number;
+  userId?: number;
+  status?: boolean;
+  updatedAt?: Date;
+  createdAt?: Date;
+}

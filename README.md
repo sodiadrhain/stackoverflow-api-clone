@@ -149,7 +149,7 @@ You will be given a printout showing your running containers. Part of the printo
 ```
 
 ```
-.....   0.0.0.0:3306->3306/tcp,     mysql
+.....   0.0.0.0:3306->3306/tcp,     database
 
 ```
 
