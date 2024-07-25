@@ -1,5 +1,5 @@
 import request from "supertest";
-import { app } from "../server";
+import { app } from "../src/config/server.config";
 import { generateRandomEmail, generateStrongPassword } from "@utils";
 import { APP } from "@envs";
 

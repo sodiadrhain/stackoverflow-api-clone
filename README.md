@@ -1,6 +1,7 @@
 # Stackoverflow API
 
-This is the api collection for a clone stackoverflow api
+This is the api collection for a clone stackoverflow api.
+
 Api contains:
 1. Authentication
 2. Questions (asking and replying)

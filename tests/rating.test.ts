@@ -3,8 +3,9 @@ import { app } from "../src/config/server.config";
 import { APP } from "@envs";
 import { generateRandomEmail, generateStrongPassword } from "@utils";
 
-describe("Questions", () => {
+describe("Ratings", () => {
   let token: string;
+  let questionId: number;
 
   beforeAll(async () => {
     // Auth
@@ -15,32 +16,32 @@ describe("Questions", () => {
     const loginResponse = await request(app()).post("/auth/login").send({ email, password });
 
     token = loginResponse.body?.data?.token?.accessToken;
-  });
 
-  it("should allow a logged-in user to ask a question", async () => {
-    const response = await request(app())
+    const questionResponse = await request(app())
       .post("/question")
       .set(APP.AUTH_HEADER, token)
       .send({ title: "Test question", description: "Testing a question description" });
 
-    expect(response.status).toBe(201);
-    expect(response.body.message).toBe("Question created successfully");
+    questionId = questionResponse.body?.data?.id;
   });
 
-  it("should allow a logged-in user to reply to a question", async () => {
-    const questionResponse = await request(app())
-      .post("/question")
-      .set(APP.AUTH_HEADER, token)
-      .send({ title: "Test question reply", description: "Testing a question reply description" });
-
-    const questionId = questionResponse.body?.data?.id;
-
+  it("should allow a logged-in user to upvote a question", async () => {
     const response = await request(app())
-      .post("/reply")
+      .post("/rating/question")
       .set(APP.AUTH_HEADER, token)
-      .send({ reply: "Reply to test question", questionId });
+      .send({ rate: true, questionId });
 
-    expect(response.status).toBe(201);
-    expect(response.body.message).toBe("Reply created successfully");
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("Upvoted successfully");
+  });
+
+  it("should allow a logged-in user to downvote a question", async () => {
+    const response = await request(app())
+      .post("/rating/question")
+      .set(APP.AUTH_HEADER, token)
+      .send({ rate: false, questionId });
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("Downvoted successfully");
   });
 });

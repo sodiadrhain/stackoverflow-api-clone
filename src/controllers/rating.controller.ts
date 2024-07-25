@@ -23,7 +23,7 @@ class RatingController {
       const existingRating = await ratingService.getQuestionRating({ questionId, userId });
       if (existingRating) {
         await ratingService.updateQuestionRating(existingRating, { upVote, downVote });
-        return res.ok(existingRating, "Rating updated successfully");
+        return res.ok(existingRating, "Downvoted successfully");
       } else {
         const newRating = await ratingService.createQuestionRating({
           upVote,
@@ -31,7 +31,7 @@ class RatingController {
           questionId,
           userId,
         });
-        res.created(newRating, "Rating created successfully");
+        res.ok(newRating, "Upvoted successfully");
       }
     } catch (error) {
       res.serverError(error);
