@@ -70,8 +70,6 @@ describe("Subscription", () => {
 
     const user1questionId = questionResponse.body?.data?.id;
 
-    console.log({ user1questionId });
-
     // User 2 subscribes to user 1 question
     const subscribe = await request(app())
       .post("/subscription")
@@ -80,7 +78,6 @@ describe("Subscription", () => {
 
     expect(subscribe.status).toBe(200);
     expect(subscribe.body.message).toBe("Subscribed to question successfully");
-    console.log({ subscribe: subscribe.body });
 
     // User 3 replies to user 1 question
     const response = await request(app())
@@ -91,15 +88,13 @@ describe("Subscription", () => {
     expect(response.status).toBe(201);
     expect(response.body.message).toBe("Reply created successfully");
 
-    console.log({ response: response.body });
-
     // User 2 gets notification of the question he subscribed to
     const response2 = await request(app())
       .get("/subscription/notification")
       .set(APP.AUTH_HEADER, tokenUser2);
 
     expect(response2.status).toBe(200);
-    console.log(response2.body);
+
     expect(response2.body?.data?.data?.[0]?.questionId).toBe(user1questionId);
     expect(response2.body?.data?.data?.[0]?.replyId).toBe(response.body?.data?.id);
     expect(response2.body.message).toBe("Subscription notifications fetched successfully");
