@@ -94,7 +94,6 @@ describe("Subscription", () => {
       .set(APP.AUTH_HEADER, tokenUser2);
 
     expect(response2.status).toBe(200);
-
     expect(response2.body?.data?.data?.[0]?.questionId).toBe(user1questionId);
     expect(response2.body?.data?.data?.[0]?.replyId).toBe(response.body?.data?.id);
     expect(response2.body.message).toBe("Subscription notifications fetched successfully");
