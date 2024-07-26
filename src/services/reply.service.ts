@@ -44,21 +44,30 @@ class ReplyService {
       // creates a notification for each of the subscribed user
       // TODO: After create reply ==> send email to user
       newReply = await Reply.create(reply);
+      const questionId = question.id;
 
       // do not create notification if its owner of question making reply
       const subscriptions = await Subscription.findAll({
-        where: { questionId: question.id, userId: { [Op.ne]: question.userId } },
+        where: { questionId, userId: { [Op.ne]: question.userId } },
         lock: true,
       });
 
+      // notify the question owner
+      await SubscriptionNotification.create({
+        questionId,
+        userId: question.userId,
+        replyId: newReply.id,
+      });
+
+      // notify subscribers of the question
       subscriptions.forEach(async (s) => {
         // also if user who is making the reply already subscribed to it do not notify
         if (reply.userId === s.userId) {
           return;
         }
         await SubscriptionNotification.create({
-          questionId: s.questionId,
-          userId: question.userId,
+          questionId,
+          userId: s.userId,
           replyId: newReply.id,
         });
       });

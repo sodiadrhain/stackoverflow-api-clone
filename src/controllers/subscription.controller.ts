@@ -27,7 +27,7 @@ class SubscriptionController {
         questionId,
         userId,
       });
-      res.ok(subsciption, "Subcribed to question successfully");
+      res.ok(subsciption, "Subscribed to question successfully");
     } catch (error) {
       res.serverError(error);
     }
