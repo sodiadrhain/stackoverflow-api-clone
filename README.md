@@ -84,7 +84,7 @@ Ensure you have the following softwares installed:
 - [Git](https://www.atlassian.com/git/tutorials/install-git)
 - [Go-Migrate](https://github.com/golang-migrate/migrate) (to run migrations)
 
-- Clone the [repository](https://gitlab.com/kora-assessment/be-adesoji-awobajo) and proceed with the instructions below.
+- Clone the [repository](https://github.com/sodiadrhain/stackoverflow-api-clone.git) and proceed with the instructions below.
 
 
 ### Running locally
